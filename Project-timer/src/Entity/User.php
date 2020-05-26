@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -30,7 +32,8 @@ class User
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(name="email", type="string", unique=true)
+     * @Assert\Email
      */
     private $email;
 
@@ -41,11 +44,18 @@ class User
 
     /**
      * @ORM\OneToMany(targetEntity=Group::class, mappedBy="user")
+     * @ORM\JoinColumn(nullable=false, onDelete="SET NULL")
      */
     private $teams;
 
+    /**
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles;
+
     public function __construct()
     {
+        $this->roles = ['ROLE_USER'];
         $this->teams = new ArrayCollection();
     }
 
@@ -90,12 +100,12 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
@@ -129,6 +139,31 @@ class User
                 $team->setUser(null);
             }
         }
+
+        return $this;
+    }
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): User
+    {
+        $this->roles = $roles;
 
         return $this;
     }
