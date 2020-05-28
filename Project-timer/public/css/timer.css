@@ -1,0 +1,24 @@
+/*NAVBAR*/
+
+nav {
+    background-color: #24292e;
+}
+
+nav a {
+    font-weight: bold;
+    color: white;
+}
+
+.host{
+    margin-left: 20px;
+}
+
+.host:hover{
+    color: #A9A9A9;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.account{
+    margin-right: 20px;
+}
