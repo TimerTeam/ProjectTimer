@@ -10,6 +10,9 @@
         {% endblock %}
     </head>
     <body>
+    <div class="col-sm-12">
+        {% include ('flash-messages/flash-messages.html.twig') %}
+    </div>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

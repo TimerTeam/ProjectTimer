@@ -39,12 +39,12 @@ class UserController extends AbstractController
 
     /**
      * @Route("/login", name="login")
-     */
+
     public function log()
     {
         $userList = $this->userRepository->findAll();
         return $this->render('security/login.html.twig');
-    }
+    }*/
 
     /**
      * @Route("/user-create", name="user-create")
@@ -69,7 +69,7 @@ class UserController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', "The user has been created");
 
-            return $this->redirectToRoute('login');
+        //    return $this->redirectToRoute('login');
 
         }
         return $this->render('user/new.html.twig', [
