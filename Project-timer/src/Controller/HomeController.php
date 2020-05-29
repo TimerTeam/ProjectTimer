@@ -46,7 +46,6 @@ class HomeController extends AbstractController
                 $entityManager->flush();
                 $this->addFlash('success', "votre compte a été crée, veuillez vous connecter");
 
-                return $this->redirectToRoute('home');
 
             }
 
