@@ -1,14 +1,13 @@
-
-
 /*NAVBAR*/
 
-nav {
-    background-color: #24292e;
+.navbar {
+    background-color: #f8f8f8; 
+    height: 50px;
 }
 
 nav a {
     font-weight: bold;
-    color: white;
+    color: #777;
 }
 
 .host{
@@ -16,7 +15,7 @@ nav a {
 }
 
 .host:hover{
-    color: #A9A9A9;
+    color: black;
     transition: 0.3s;
     text-decoration: none;
 }
@@ -107,7 +106,38 @@ nav a {
     text-align: center;
 }
 
-
-
-
 /********/
+
+/*PROFIL*/
+
+.profil{
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.information{
+    border: solid;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+#button{
+    margin-top : 20px;
+}
+
+#modify{
+    margin-top: 20px;
+    display:none;
+}
+
+.btn-sbm-mod{
+    margin-top : 20px;
+}
+
+
+
+/*******/
