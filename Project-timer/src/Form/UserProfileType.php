@@ -17,15 +17,15 @@ class UserProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('lastName', TextareaType::class, ['label' => "name"])
-            ->add('firstName', TextareaType::class, ['label' => "first name"])
+            ->add('email', EmailType::class, ['attr' => ['class' => "form-control"]])
+            ->add('lastName', TextareaType::class, ['label' => "Nom", 'attr' => ['class' => "form-control"]])
+            ->add('firstName', TextareaType::class, ['label' => "Prénom", 'attr' => ['class' => "form-control"]])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => "Password confirm"],
+                'first_options' => ['label' => 'Mot de passe', 'attr' => ['class' => "form-control"]],
+                'second_options' => ['label' => "Répétez le mot de passe", 'attr' => ['class' => "form-control"]],
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['attr' => ['class' => "btn btn-lg btn-primary btn-sbm-mod"]])
 
         ;
     }
