@@ -4,11 +4,19 @@
 {% block body %}
 
 <link href="{{ asset('css/timer.css') }}" type="text/css" rel="stylesheet">
+
     <div id="general">
 
             <div class = "form sign-up">
-                <h3>INSCRIPTION</h3>
                 {{ form_start(form) }}
+                <h3>INSCRIPTION</h3>
+                <div>
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-notice">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
                 <div class = "field-2">
                     {{ form_label(form.firstName) }}
                     {{ form_widget(form.firstName) }}
@@ -30,12 +38,17 @@
                 <div id="register">
                 {{ form_row(form.save, {'label': 'S\'inscrire'}) }}
                 </div>
-                {{ form_end(form) }} 
+                {{ form_end(form) }}
 
             </div>
 
             <div class = "form sign-in">
                 <form action="{{ path('app_login') }}" method="post">
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-notice">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}

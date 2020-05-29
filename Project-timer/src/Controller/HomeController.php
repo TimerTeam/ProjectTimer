@@ -44,10 +44,10 @@ class HomeController extends AbstractController
                 $entityManager->persist($user);
 
                 $entityManager->flush();
+                $request->getSession()->getFlashBag()->add();
                 $this->addFlash('success', "votre compte a été crée, veuillez vous connecter");
 
             }
-
             return $this->render('home/index.html.twig', [
                 'last_username' => $lastUsername,
                 'error' => $error,
@@ -68,11 +68,11 @@ class HomeController extends AbstractController
         $form = $this->createForm(UserProfileType::class, $user);
 
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-         $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
 
-                   $user->setPassword($password);
+            $user->setPassword($password);
 
             $entityManager->persist($user);
             $entityManager->flush();
