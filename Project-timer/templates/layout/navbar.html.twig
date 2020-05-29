@@ -7,13 +7,6 @@
         
             <div class="collapse navbar-collapse menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{{ path('home') }}" class="host">Accueil</a>
-                    </li>
-
-                </ul>
-
-                <ul class="navbar-nav">
 
                     <li>
                         <a href="{{ path('user_list') }}" class="host">Liste des utilisateurs</a>
@@ -26,8 +19,6 @@
                             {% if is_granted('ROLE_USER') %}
                                 <a href="{{ path('profile') }}" class="btn btn-outline-info">Mon Profil</a>
                             {% endif %}
-                        {% else %}
-                            <a href="{{ path('app_login') }}" class="btn btn-outline-warning account">Inscription</a>
                         {% endif %}
                     </li>
                 </ul>
@@ -38,14 +29,11 @@
                     <li class="nav-item">
                         <a href="{{ path('app_logout') }}" class="btn btn-outline-danger">Déconnexion</a>
                         {% else %}
-                            <a href="{{ path('app_login') }}" class="btn btn-outline-success account">Connexion</a>
+                            <a href="{{ path('home') }}" class="btn btn-outline-success account">Connexion</a>
                         {% endif %}
                     </li>
 
                 </ul>
-
-
-
             </div>
 
     </nav>

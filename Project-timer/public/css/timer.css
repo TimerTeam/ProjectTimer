@@ -1,3 +1,5 @@
+
+
 /*NAVBAR*/
 
 nav {
@@ -22,3 +24,90 @@ nav a {
 .account{
     margin-right: 20px;
 }
+
+/********/
+
+
+/*HOMEPAGE*/
+
+#general {
+    background-image: url(../images/fond.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex; 
+    width: 100%;
+    min-height: 100vh;
+    margin : auto;
+    align-items: center;
+    justify-content: center;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+.form {
+    background-color: white;
+    width: 400px;
+    height: 550px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 1px 12px #555;
+
+}
+
+.form h3{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.sign-up{
+    margin-right: 50px;
+}
+
+.sign-in{
+    margin-left: 50px;
+}
+
+.field, .field-2{
+    width: 100%;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.field-2{
+    margin-bottom: 10px;
+}
+
+.f-email{
+    margin-bottom: 30px;
+}
+
+.f-password{
+    margin-top: 30px;
+    margin-bottom: 80px;
+}
+
+.field input{
+    width: 100%;
+    border: none;
+    outline: none!important;
+    line-height: 1.2;
+    height: 50px;
+}
+.field-2 input{
+    width: 100%;
+    border: none;
+    outline: none!important;
+    line-height: 1.2;
+    height: 30px;
+    line-height: 1.2;
+}
+
+#register {
+    margin-top: 40px;
+    text-align: center;
+}
+
+
+
+
+/********/
