@@ -53,10 +53,17 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="user")
+     */
+    private $ListGroup;
+
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->teams = new ArrayCollection();
+        $this->ListGroup = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,6 +126,13 @@ class User implements UserInterface
     {
         return $this->teams;
     }
+    public function setTeams(Group $teams)
+    {
+        if(!$this->teams->contains($teams)){
+            $this->teams[] = $teams;
+            $teams->setUser($this);
+        }
+    }
 
     public function addTeam(Group $team): self
     {
@@ -167,4 +181,34 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getListGroup(): Collection
+    {
+        return $this->ListGroup;
+    }
+
+    public function addListGroup(Group $listGroup): self
+    {
+        if (!$this->ListGroup->contains($listGroup)) {
+            $this->ListGroup[] = $listGroup;
+            $listGroup->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListGroup(Group $listGroup): self
+    {
+        if ($this->ListGroup->contains($listGroup)) {
+            $this->ListGroup->removeElement($listGroup);
+            $listGroup->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    
 }

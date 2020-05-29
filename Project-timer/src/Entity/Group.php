@@ -26,18 +26,26 @@ class Group
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="teams")
-     */
-    private $user;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Project::class, inversedBy="teams")
      */
     private $projects;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $groupAdmin;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="ListGroup")
+     */
+    private $user;
+
+
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,18 +61,6 @@ class Group
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -94,4 +90,44 @@ class Group
 
         return $this;
     }
+
+    public function getGroupAdmin(): ?int
+    {
+        return $this->groupAdmin;
+    }
+
+    public function setGroupAdmin(int $groupAdmin): self
+    {
+        $this->groupAdmin = $groupAdmin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+        }
+
+        return $this;
+    }
+
+
 }
