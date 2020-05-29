@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\UserRepository;
+use App\Repository\GroupRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Group;
 use App\Entity\User;
@@ -16,12 +16,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 class GroupController extends AbstractController
 {
     private $entityManager;
-    private $userRepository;
+    private $groupRepository;
 
-    public function __construct(UserRepository $userRepository,EntityManagerInterface $entityManager)
+    public function __construct(GroupRepository $groupRepository,EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -29,13 +29,15 @@ class GroupController extends AbstractController
      */
     public function index()
     {
+        $groupList = $this->groupRepository->findAll();
         return $this->render('group/index.html.twig', [
-            'controller_name' => 'GroupController',
+            'controller_name' => 'Group Controller',
+            'group_list' => $groupList
         ]);
     }
 
     /**
-     * @Route("/group-create", name="group-create")
+     * @Route("/group_create", name="group-create")
      */
     public function newAction(
         Request $request,
@@ -49,13 +51,12 @@ class GroupController extends AbstractController
 
             $curentUser = $this->getUser(); 
             $curentUserId = $curentUser->getId();
-            //$password = $passwordEncoder->encodePassword($group, $group->getPassword());
-            //$group->setPassword($password);
+            $group->setGroupAdmin($curentUserId);
+            $group->addUser($curentUser);
 
-            //$entityManager->persist($group);
-
-            //$entityManager->flush();
-            //$this->addFlash('success', "The user has been created");
+            $entityManager->persist($group);
+            $entityManager->flush();
+            $this->addFlash('success', "The user has been created");
 
             return $this->redirectToRoute('group');
 
