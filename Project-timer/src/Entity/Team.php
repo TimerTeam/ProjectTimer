@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\TeamRepository;
+use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
- * @ORM\Entity(repositoryClass=TeamRepository::class)
+ * @ORM\Entity(repositoryClass=GroupRepository::class)
+ * @ORM\Table(name="`group`")
  */
-class Team
+class Group
 {
     /**
      * @ORM\Id()
@@ -26,7 +26,7 @@ class Team
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Project::class)
+     * @ORM\ManyToMany(targetEntity=Project::class, inversedBy="teams")
      */
     private $projects;
 
@@ -36,14 +36,16 @@ class Team
     private $groupAdmin;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class)
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="ListGroup")
      */
-    private $users;
+    private $user;
+
+
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
-        $this->users = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,14 +91,14 @@ class Team
         return $this;
     }
 
-    public function getTeamAdmin(): ?int
+    public function getGroupAdmin(): ?int
     {
         return $this->groupAdmin;
     }
 
-    public function setTeamAdmin(int $teamAdmin): self
+    public function setGroupAdmin(int $groupAdmin): self
     {
-        $this->groupAdmin = $teamAdmin;
+        $this->groupAdmin = $groupAdmin;
 
         return $this;
     }
@@ -104,15 +106,15 @@ class Team
     /**
      * @return Collection|User[]
      */
-    public function getUsers(): Collection
+    public function getUser(): Collection
     {
-        return $this->users;
+        return $this->user;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
         }
 
         return $this;
@@ -120,10 +122,12 @@ class Team
 
     public function removeUser(User $user): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
         }
 
         return $this;
     }
+
+
 }
