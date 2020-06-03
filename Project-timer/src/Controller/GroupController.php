@@ -66,4 +66,36 @@ class GroupController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/group_edit/{idGroup}", name="group_edit")
+     */
+    public function editAction(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        $idGroup)
+    {
+        $group = $this->groupRepository->find(['id' => $idGroup]);
+        $form = $this->createForm(GroupType::class, $group);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $curentUser = $this->getUser(); 
+            $curentUserId = $curentUser->getId();
+            $group->setGroupAdmin($curentUserId);
+            $group->addUser($curentUser);
+
+            $entityManager->persist($group);
+            $entityManager->flush();
+            $this->addFlash('success', "The user has been updated");
+
+            return $this->redirectToRoute('group');
+
+        }
+
+        return $this->render('group/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

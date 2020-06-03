@@ -37,6 +37,7 @@
                 <tr>
                     <th> nom </th>
                     <th> utilisateur </th>
+                    <th> modifier </th>
                   <!--  <th colspan="3"> Action</th> -->
                 </tr>
                 </thead>
@@ -45,12 +46,17 @@
                 <tr>
                 <td>{{ group.name }} </td>
                 {% if group.getUser is not empty %}
-                <td> 
+                    <td> 
                     - menbre du groupe : 
                     {% for users in group.getUser %}
                         {{users.firstName}} ,
                     {% endfor %}
-                </td>
+                    </td>
+                    <td>
+                        {% if group.getGroupAdmin == app.user.id %}
+                            <a href="">modifier</a>
+                        {% endif %}
+                    </td>
                 {% endif %}
                 </tr>
             {% endfor %}
