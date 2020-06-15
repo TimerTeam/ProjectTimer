@@ -45,20 +45,19 @@
             {% for projet in projet_list %}
                 <tr>
                 <td>{{ projet.name }} </td>
-                <td>{{ projet.description }} </td>
-                {% if projet.getGroup is not empty %}
+                {% if projet.getUser is not empty %}
                     <td> 
-                    - groupe lié au projet: 
-                    {% for groups in projet.getGroup %}
-                        {{groups.name}} ,
+                    - menbre du groupe : 
+                    {% for groups in group.getGroup %}
+                        {{proups.name}} ,
                     {% endfor %}
                     </td>
-                {% endif %}
                     <td>
-                        {% if projet.getProjectAdmin == app.user.id %}
+                        {% if group.getGroupAdmin == app.user.id %}
                             <a href="">modifier</a>
                         {% endif %}
                     </td>
+                {% endif %}
                 </tr>
             {% endfor %}
             </table>
