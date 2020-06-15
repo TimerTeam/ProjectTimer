@@ -34,6 +34,11 @@ class Project
      */
     private $teams;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $projectAdmin;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
@@ -71,12 +76,12 @@ class Project
     /**
      * @return Collection|Group[]
      */
-    public function getTeams(): Collection
+    public function getGroup(): Collection
     {
         return $this->teams;
     }
 
-    public function addTeam(Group $team): self
+    public function addGroup(Group $team): self
     {
         if (!$this->teams->contains($team)) {
             $this->teams[] = $team;
@@ -86,12 +91,24 @@ class Project
         return $this;
     }
 
-    public function removeTeam(Group $team): self
+    public function removeGroup(Group $team): self
     {
         if ($this->teams->contains($team)) {
             $this->teams->removeElement($team);
             $team->removeProject($this);
         }
+
+        return $this;
+    }
+
+    public function getProjectAdmin(): ?int
+    {
+        return $this->projectAdmin;
+    }
+
+    public function setProjectAdmin(int $projectAdmin): self
+    {
+        $this->projectAdmin = $projectAdmin;
 
         return $this;
     }
