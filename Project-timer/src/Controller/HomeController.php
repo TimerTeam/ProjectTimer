@@ -44,7 +44,7 @@ class HomeController extends AbstractController
                 $entityManager->persist($user);
 
                 $entityManager->flush();
-                $request->getSession()->getFlashBag()->add();
+                //$request->getSession()->getFlashBag()->add();
                 $this->addFlash('success', "votre compte a été crée, veuillez vous connecter");
 
             }

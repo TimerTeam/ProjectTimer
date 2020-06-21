@@ -9,14 +9,11 @@
 
             <div class = "form sign-up">
                 {{ form_start(form) }}
-                <h3>INSCRIPTION</h3>
                 <div>
-                    {% for message in app.flashes('notice') %}
-                        <div class="alert alert-notice">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
+                    {% include ('flash-messages/flash-messages.html.twig') %}
                 </div>
+                <h3>INSCRIPTION</h3>
+
                 <div class = "field-2">
                     {{ form_label(form.firstName) }}
                     {{ form_widget(form.firstName) }}
