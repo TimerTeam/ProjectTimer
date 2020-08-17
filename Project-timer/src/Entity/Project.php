@@ -34,11 +34,6 @@ class Project
      */
     private $projectAdmin;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $projectAdmin;
-
     public function __construct()
     {
        // $this->teams = new ArrayCollection();

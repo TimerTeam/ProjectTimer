@@ -2,16 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupRepository;
+use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=GroupRepository::class)
- * @ORM\Table(name="`group`")
+ * @ORM\Entity(repositoryClass=TeamRepository::class)
  */
-class Group
+class Team
 {
     /**
      * @ORM\Id()
@@ -26,7 +25,7 @@ class Group
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Project::class, inversedBy="teams")
+     * @ORM\ManyToMany(targetEntity=Project::class)
      */
     private $projects;
 
@@ -36,16 +35,14 @@ class Group
     private $groupAdmin;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="ListGroup")
+     * @ORM\ManyToMany(targetEntity=User::class)
      */
-    private $user;
-
-
+    private $users;
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
-        $this->user = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,15 +103,15 @@ class Group
     /**
      * @return Collection|User[]
      */
-    public function getUser(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
@@ -122,12 +119,10 @@ class Group
 
     public function removeUser(User $user): self
     {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
         }
 
         return $this;
     }
-
-
 }

@@ -45,20 +45,16 @@
             {% for team in team_list %}
                 <tr>
                 <td>{{ team.name }} </td>
-                {% if team.getUsers is not empty %}
+                {% if team.getUser is not empty %}
                     <td> 
                     - menbre du groupe : 
-                    {% for users in team.getUsers %}
-                        {{users.firstName}}
-                        {% if users.id == team.getTeamAdmin %}
-                         [ADMIN]
-                        {% endif %}
-                        ,
+                    {% for users in team.getUser %}
+                        {{users.firstName}} ,
                     {% endfor %}
                     </td>
                     <td>
                         {% if team.getTeamAdmin == app.user.id %}
-                            <a href="{{ path('team_edit',{idTeam: team.id}) }}">modifier</a>
+                            <a href="">modifier</a>
                         {% endif %}
                     </td>
                 {% endif %}
