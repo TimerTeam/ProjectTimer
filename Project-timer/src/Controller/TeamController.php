@@ -4,97 +4,98 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\GroupRepository;
+use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Group;
+use App\Entity\Team;
 use App\Entity\User;
-use App\Form\GroupType;
+use App\Form\TeamType;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
-class GroupController extends AbstractController
+class TeamController extends AbstractController
 {
     private $entityManager;
-    private $groupRepository;
+    private $teamRepository;
 
-    public function __construct(GroupRepository $groupRepository,EntityManagerInterface $entityManager)
+    public function __construct(TeamRepository $teamRepository,EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->groupRepository = $groupRepository;
+        $this->teamRepository = $teamRepository;
     }
 
     /**
-     * @Route("/group", name="group")
+     * @Route("/team", name="team")
      */
     public function index()
     {
-        $groupList = $this->groupRepository->findAll();
-        return $this->render('group/index.html.twig', [
-            'controller_name' => 'Group Controller',
-            'group_list' => $groupList
+        $teamList = $this->teamRepository->findAll();
+        return $this->render('team/index.html.twig', [
+            'controller_name' => 'Team Controller',
+            'team_list' => $teamList
         ]);
     }
 
     /**
-     * @Route("/group_create", name="group-create")
+     * @Route("/team_create", name="team-create")
      */
     public function newAction(
         Request $request,
         EntityManagerInterface $entityManager)
     {
-        $group = new Group();
-        $form = $this->createForm(GroupType::class, $group);
+        $team = new Team();
+        $form = $this->createForm(TeamType::class, $team);
+        dump($form);die;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $curentUser = $this->getUser(); 
             $curentUserId = $curentUser->getId();
-            $group->setGroupAdmin($curentUserId);
-            $group->addUser($curentUser);
+            $team->setTeamAdmin($curentUserId);
+            $team->addUser($curentUser);
 
-            $entityManager->persist($group);
+            $entityManager->persist($team);
             $entityManager->flush();
             $this->addFlash('success', "The user has been created");
 
-            return $this->redirectToRoute('group');
+            return $this->redirectToRoute('team');
 
         }
 
-        return $this->render('group/new.html.twig', [
+        return $this->render('team/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/group_edit/{idGroup}", name="group_edit")
+     * @Route("/team_edit/{idTeam}", name="team_edit")
      */
     public function editAction(
         Request $request,
         EntityManagerInterface $entityManager,
-        $idGroup)
+        $idTeam)
     {
-        $group = $this->groupRepository->find(['id' => $idGroup]);
-        $form = $this->createForm(GroupType::class, $group);
+        $team = $this->teamRepository->find(['id' => $idTeam]);
+        $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $curentUser = $this->getUser(); 
             $curentUserId = $curentUser->getId();
-            $group->setGroupAdmin($curentUserId);
-            $group->addUser($curentUser);
+            $team->setTeamAdmin($curentUserId);
+            $team->addUser($curentUser);
 
-            $entityManager->persist($group);
+            $entityManager->persist($team);
             $entityManager->flush();
             $this->addFlash('success', "The user has been updated");
 
-            return $this->redirectToRoute('group');
+            return $this->redirectToRoute('team');
 
         }
 
-        return $this->render('group/new.html.twig', [
+        return $this->render('team/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }

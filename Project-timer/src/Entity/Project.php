@@ -30,18 +30,13 @@ class Project
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="projects")
-     */
-    private $teams;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $projectAdmin;
 
     public function __construct()
     {
-        $this->teams = new ArrayCollection();
+       // $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int

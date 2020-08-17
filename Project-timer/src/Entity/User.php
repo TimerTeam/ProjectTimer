@@ -42,28 +42,18 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Group::class, mappedBy="user")
-     * @ORM\JoinColumn(nullable=false, onDelete="SET NULL")
-     */
-    private $teams;
 
     /**
      * @ORM\Column(type="simple_array")
      */
     private $roles;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="user")
-     */
-    private $ListGroup;
-
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
-        $this->teams = new ArrayCollection();
-        $this->ListGroup = new ArrayCollection();
+        //$this->teams = new ArrayCollection();
+        //$this->ListGroup = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,33 +172,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Group[]
-     */
-    public function getListGroup(): Collection
-    {
-        return $this->ListGroup;
-    }
 
-    public function addListGroup(Group $listGroup): self
-    {
-        if (!$this->ListGroup->contains($listGroup)) {
-            $this->ListGroup[] = $listGroup;
-            $listGroup->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListGroup(Group $listGroup): self
-    {
-        if ($this->ListGroup->contains($listGroup)) {
-            $this->ListGroup->removeElement($listGroup);
-            $listGroup->removeUser($this);
-        }
-
-        return $this;
-    }
 
     
 }

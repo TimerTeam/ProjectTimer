@@ -45,7 +45,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user-create", name="user-create")
+     * @Route("/user_create", name="user_create")
      */
     public function newAction(
         Request $request,

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Group Controller!{% endblock %}
+{% block title %}Hello Team Controller!{% endblock %}
 
 {% block body %}
 <!--
@@ -14,8 +14,8 @@
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/GroupController.php'|file_link(0) }}">src/Controller/GroupController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/project/templates/group/index.html.twig'|file_link(0) }}">templates/group/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/TeamController.php'|file_link(0) }}">src/Controller/TeamController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/var/www/project/templates/team/index.html.twig'|file_link(0) }}">templates/team/index.html.twig</a></code></li>
     </ul>
 </div>
 -->
@@ -42,18 +42,18 @@
                 </tr>
                 </thead>
             {# légèrement différent de php avec foreach userList as user #}
-            {% for group in group_list %}
+            {% for team in team_list %}
                 <tr>
-                <td>{{ group.name }} </td>
-                {% if group.getUser is not empty %}
+                <td>{{ team.name }} </td>
+                {% if team.getUser is not empty %}
                     <td> 
                     - menbre du groupe : 
-                    {% for users in group.getUser %}
+                    {% for users in team.getUser %}
                         {{users.firstName}} ,
                     {% endfor %}
                     </td>
                     <td>
-                        {% if group.getGroupAdmin == app.user.id %}
+                        {% if team.getTeamAdmin == app.user.id %}
                             <a href="">modifier</a>
                         {% endif %}
                     </td>
