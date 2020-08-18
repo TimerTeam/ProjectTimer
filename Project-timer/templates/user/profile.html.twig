@@ -21,6 +21,8 @@
             <li>Prénom: {{ user.firstName }}</li>
             <li>Email: {{ user.email }}</li>
             <button id = "button" class = "btn btn-primary">Modifier le profil</button>
+            <a id = "buttonDelete" class="btn btn-danger" href="{{ path('user_delete', {'id': user.id}) }}" style="padding-top: auto; margin-top: 20px; margin-left: 2px">Supprimer mon compte</a>
+
         </div>
         <div id = "modify">
             {{ form(form) }}
@@ -41,13 +43,26 @@ function afficher_Form(){
 }*/
 
 var button = document.getElementById("button");
+var deletebtn = document.getElementById("buttonDelete");
 var modify = document.getElementById("modify");
-
+let hidden = true;
 
     modify.style.display="none";
             button.addEventListener('click', () => {
-                modify.style.display="block";
-                modify.style.width="70%";
+               if(hidden){
+                   modify.style.display="block";
+                  // deletebtn.style.display="none";
+                   modify.style.width="70%";
+                   button.textContent="en cours de modif..";
+                   hidden = false;
+               }
+               else {
+                   button.textContent="Modifier le profil"
+                 //  deletebtn.style.display="block";
+                    modify.style.display="none";
+        hidden = true;
+
+}
             });
 
 

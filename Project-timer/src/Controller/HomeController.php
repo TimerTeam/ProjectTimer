@@ -77,7 +77,7 @@ class HomeController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_logout');
+            return $this->redirectToRoute('profile');
 
         }
 

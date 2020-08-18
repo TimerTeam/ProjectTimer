@@ -25,7 +25,7 @@ class UserProfileType extends AbstractType
                 'first_options' => ['label' => 'Mot de passe', 'attr' => ['class' => "form-control"]],
                 'second_options' => ['label' => "Répétez le mot de passe", 'attr' => ['class' => "form-control"]],
             ])
-            ->add('submit', SubmitType::class, ['attr' => ['class' => "btn btn-lg btn-primary btn-sbm-mod"]])
+            ->add('Modifier', SubmitType::class, ['attr' => ['class' => "btn btn-lg btn-primary btn-sbm-mod"]])
 
         ;
     }

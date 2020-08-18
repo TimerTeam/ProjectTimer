@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,4 +77,32 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/delete-bis/{id}", name="user_delete_bis")
+     */
+    public function deleteBis(string $id, EntityManagerInterface $entityManager)
+    {
+        $user = $this->userRepository->find($id);
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('danger', "Votre compte a bien été supprimé");
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="user_delete")
+     * @ParamConverter("user", options={"mapping"={"id"="id"}})
+     */
+    public function delete(user $user, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('danger', "Votre compte a bien été supprimé");
+
+        return $this->redirectToRoute('user_list');
+    }
+
 }

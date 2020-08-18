@@ -2,16 +2,14 @@
 
 {% block title %}Hello Page !{% endblock %}
 {% block body %}
-
+    <div>
+        {% include ('flash-messages/flash-messages.html.twig') %}
+    </div>
 <link href="{{ asset('css/timer.css') }}" type="text/css" rel="stylesheet">
 
     <div id="general">
-
             <div class = "form sign-up">
                 {{ form_start(form) }}
-                <div>
-                    {% include ('flash-messages/flash-messages.html.twig') %}
-                </div>
                 <h3>INSCRIPTION</h3>
 
                 <div class = "field-2">
