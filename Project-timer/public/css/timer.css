@@ -138,3 +138,13 @@ font-family: 'Lato', sans-serif;
 
 
 /*******/
+
+
+/*CHECKBOX*/
+
+[type="checkbox"]{
+    margin-left: 20px;
+    margin-right: 2px;
+}
+
+/*******/

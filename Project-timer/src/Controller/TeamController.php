@@ -96,7 +96,7 @@ class TeamController extends AbstractController
 
         }
 
-        return $this->render('team/new.html.twig', [
+        return $this->render('team/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
