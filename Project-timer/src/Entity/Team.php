@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=TeamRepository::class)
  */
@@ -88,14 +89,14 @@ class Team
         return $this;
     }
 
-    public function getGroupAdmin(): ?int
+    public function getTeamAdmin(): ?int
     {
         return $this->groupAdmin;
     }
 
-    public function setGroupAdmin(int $groupAdmin): self
+    public function setTeamAdmin(int $teamAdmin): self
     {
-        $this->groupAdmin = $groupAdmin;
+        $this->groupAdmin = $teamAdmin;
 
         return $this;
     }

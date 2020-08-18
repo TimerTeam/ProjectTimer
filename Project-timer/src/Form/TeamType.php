@@ -27,7 +27,7 @@ class TeamType extends AbstractType
     {
 
         $builder->add('name', TextType::class);
-        $builder->add('user', EntityType::class, [
+        $builder->add('users', EntityType::class, [
             'class' => User::class,
             'choice_label' => function(User $user){
                 return $user->getFirstName();
@@ -42,6 +42,7 @@ class TeamType extends AbstractType
             'multiple' => true, 
         ]);
         $builder->add('save', SubmitType::class);
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)

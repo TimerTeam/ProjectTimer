@@ -48,11 +48,16 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Team::class)
+     */
+    private $teams;
+
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
-        //$this->teams = new ArrayCollection();
+        $this->teams = new ArrayCollection();
         //$this->ListGroup = new ArrayCollection();
     }
 
