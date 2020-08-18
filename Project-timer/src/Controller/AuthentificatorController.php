@@ -42,7 +42,7 @@ class AuthentificatorController extends AbstractController
     public function connectSuccess(SessionInterface $session)
     {
 
-        return $this->render('security/success.html.twig');
+        return $this->redirectToRoute('profile');
     }
     /**
      * @Route("/logout", name="app_logout")
