@@ -1,13 +1,13 @@
 /*NAVBAR*/
 
 .navbar {
-    background-color: #f8f8f8; 
+    background-color: #292929;
     height: 50px;
 }
 
 nav a {
     font-weight: bold;
-    color: #777;
+    color:white;
 }
 
 .host{
@@ -15,7 +15,7 @@ nav a {
 }
 
 .host:hover{
-    color: black;
+    color: orange;
     transition: 0.3s;
     text-decoration: none;
 }
@@ -29,18 +29,16 @@ nav a {
 
 /*HOMEPAGE*/
 
+
+
 #general {
-    background-image: url(../images/fond.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     display: flex; 
     width: 100%;
     min-height: 100vh;
     margin : auto;
     align-items: center;
     justify-content: center;
-    font-family: Poppins-Regular, sans-serif;
+font-family: 'Lato', sans-serif;
 }
 
 .form {
@@ -117,8 +115,7 @@ nav a {
 }
 
 .information{
-    border: solid;
-    padding: 20px;
+    border: thick double black;    padding: 20px;
     border-radius: 10px;
     margin-right: 20px;
     margin-top: 20px;
