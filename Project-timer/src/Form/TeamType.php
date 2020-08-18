@@ -26,7 +26,7 @@ class TeamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $option)
     {
 
-        $builder->add('name', TextType::class);
+        $builder->add('name', TextType::class, ['label'=> "Nom du groupe",  'attr' => ['class'=>'form-control', 'placeholder' => 'Entrez le nom de votre groupe']]);
         $builder->add('users', EntityType::class, [
             'class' => User::class,
             'choice_label' => function(User $user){
@@ -40,8 +40,9 @@ class TeamType extends AbstractType
             },
             'expanded' => true,
             'multiple' => true, 
+            'label' => "Membres",
         ]);
-        $builder->add('save', SubmitType::class);
+        $builder->add('save', SubmitType::class, ['attr' => ['class' => "btn btn-success"]]);
         
     }
 
