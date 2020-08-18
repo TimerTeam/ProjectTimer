@@ -5,13 +5,20 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     errorPath="email",
+ *     message="cet user existe déjà"
+ * )
  */
+
 class User implements UserInterface
 {
     /**
@@ -42,21 +49,23 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Group::class, mappedBy="user")
-     * @ORM\JoinColumn(nullable=false, onDelete="SET NULL")
-     */
-    private $teams;
 
     /**
      * @ORM\Column(type="simple_array")
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Team::class)
+     */
+    private $teams;
+
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->teams = new ArrayCollection();
+        //$this->ListGroup = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,6 +128,13 @@ class User implements UserInterface
     {
         return $this->teams;
     }
+    public function setTeams(Group $teams)
+    {
+        if(!$this->teams->contains($teams)){
+            $this->teams[] = $teams;
+            $teams->setUser($this);
+        }
+    }
 
     public function addTeam(Group $team): self
     {
@@ -167,4 +183,8 @@ class User implements UserInterface
 
         return $this;
     }
+
+
+
+    
 }

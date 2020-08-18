@@ -2,12 +2,68 @@
 
 {% block title %}Hello Page !{% endblock %}
 {% block body %}
-    {% include 'layout/navbar.html.twig'%}
 
-    <main role="main" class="container">
+<body style = "background: repeating-linear-gradient(45deg, #292929, transparent 100px);">
+    <div>
+        {% include ('flash-messages/flash-messages.html.twig') %}
+    </div>
+<link href="{{ asset('css/timer.css') }}" type="text/css" rel="stylesheet">
 
-        <div class="starter-template" style="margin-top:100px; text-align:center">
-            <h1>H O M E P A G E</h1>
-        </div>
+    <div id="general">
+            <div class = "form sign-up">
+                {{ form_start(form) }}
+                <h3>INSCRIPTION</h3>
 
-    </main>{% endblock %}
+                <div class = "field-2">
+                    {{ form_label(form.firstName) }}
+                    {{ form_widget(form.firstName) }}
+                </div>
+                <div class = "field-2">
+                    {{ form_label(form.lastName) }}
+                    {{ form_widget(form.lastName) }}
+                </div>
+                <div class = "field-2">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                </div>
+                <div class = "field-2">
+                    {{ form_row(form.password.first) }}
+                </div>
+                <div class = "field-2">
+                    {{ form_row(form.password.second) }}
+                </div>
+                <div id="register">
+                {{ form_row(form.save, {'label': 'S\'inscrire'}) }}
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+
+            <div class = "form sign-in">
+                <form action="{{ path('app_login') }}" method="post">
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-notice">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                    <h3>CONNEXION</h3>
+                        <div class = "field f-email">
+                            <label for="inputEmail">Email</label>
+                            <input class = "field-input" type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Entrez votre email" required autofocus>
+                        </div>
+
+                        <div class="field f-password">
+                        <label for="inputPassword">Mot de passe</label>
+                            <input class = "field-input" type="password" name="password" id="inputPassword" placeholder="Entrez votre mot de passe" required>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <button style = "display: block; margin: auto;" class="btn btn-lg btn-success" type="submit">Se connecter</button>
+                </form>
+            </div>
+    </div>
+</body>
+    {% endblock %}

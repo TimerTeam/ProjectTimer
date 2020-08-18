@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +28,7 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/user_list", name="user_list")
+     * @IsGranted("ROLE_USER")
      */
     public function index()
     {
@@ -37,15 +40,15 @@ class UserController extends AbstractController
 
     /**
      * @Route("/login", name="login")
-     */
+
     public function log()
     {
         $userList = $this->userRepository->findAll();
         return $this->render('security/login.html.twig');
-    }
+    }*/
 
     /**
-     * @Route("/user-create", name="user-create")
+     * @Route("/user_create", name="user_create")
      */
     public function newAction(
         Request $request,
@@ -67,11 +70,39 @@ class UserController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', "The user has been created");
 
-            return $this->redirectToRoute('login');
+        //    return $this->redirectToRoute('login');
 
         }
         return $this->render('user/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/delete-bis/{id}", name="user_delete_bis")
+     */
+    public function deleteBis(string $id, EntityManagerInterface $entityManager)
+    {
+        $user = $this->userRepository->find($id);
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('danger', "Votre compte a bien été supprimé");
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="user_delete")
+     * @ParamConverter("user", options={"mapping"={"id"="id"}})
+     */
+    public function delete(user $user, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('danger', "Votre compte a bien été supprimé");
+
+        return $this->redirectToRoute('user_list');
+    }
+
 }

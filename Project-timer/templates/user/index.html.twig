@@ -12,17 +12,17 @@
         .example-wrapper ul li a{padding: 10px; margin: 3px; text-decoration: none; display: inline;}
         .example-wrapper a {text-decoration: none;}
     </style>
+    {% include 'layout/navbar.html.twig'%}
 
     <div class="container">
         <div Class="row justify-content-center">
-    <h1>Liste des utilisateurs du site</h1>
-            <table Class="table">
-                <thead>
+    <h1 style="margin-top: 20px;">Liste des utilisateurs</h1>
+            <table class="table table-bordered" style="margin-top: 10px; text-align: center;">
+                <thead class="thead-dark">
                 <tr>
-                    <th> prenom </th>
-                    <th> nom </th>
-                    <th> email </th>
-                  <!--  <th colspan="3"> Action</th> -->
+                    <th> Prénom </th>
+                    <th> Nom </th>
+                    <th> Email </th>
                 </tr>
                 </thead>
             {# légèrement différent de php avec foreach userList as user #}

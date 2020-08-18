@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Project Controller!{% endblock %}
+{% block title %}Hello Team Controller!{% endblock %}
 
 {% block body %}
 <!--
@@ -14,8 +14,8 @@
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/GroupController.php'|file_link(0) }}">src/Controller/GroupController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/project/templates/group/index.html.twig'|file_link(0) }}">templates/group/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/TeamController.php'|file_link(0) }}">src/Controller/TeamController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/var/www/project/templates/team/index.html.twig'|file_link(0) }}">templates/team/index.html.twig</a></code></li>
     </ul>
 </div>
 -->
@@ -28,37 +28,41 @@
         .example-wrapper ul li a{padding: 10px; margin: 3px; text-decoration: none; display: inline;}
         .example-wrapper a {text-decoration: none;}
     </style>
+    {% include 'layout/navbar.html.twig'%}
 
     <div class="container">
         <div Class="row justify-content-center">
-    <h1>Liste des projets</h1>
+    <h1>Liste des groupes</h1>
             <table Class="table">
                 <thead>
                 <tr>
                     <th> nom </th>
-                    <th> description </th>
-                    <th> groupe </th>
+                    <th> utilisateur </th>
+                    <th> modifier </th>
                   <!--  <th colspan="3"> Action</th> -->
                 </tr>
                 </thead>
             {# légèrement différent de php avec foreach userList as user #}
-            {% for projet in projet_list %}
+            {% for team in team_list %}
                 <tr>
-                <td>{{ projet.name }} </td>
-                <td>{{ projet.description }} </td>
-                {% if projet.getGroup is not empty %}
+                <td>{{ team.name }} </td>
+                {% if team.getUsers is not empty %}
                     <td> 
-                    - groupe lié au projet: 
-                    {% for groups in projet.getGroup %}
-                        {{groups.name}} ,
+                    - menbre du groupe : 
+                    {% for users in team.getUsers %}
+                        {{users.firstName}}
+                        {% if users.id == team.getTeamAdmin %}
+                         [ADMIN]
+                        {% endif %}
+                        ,
                     {% endfor %}
                     </td>
-                {% endif %}
                     <td>
-                        {% if projet.getProjectAdmin == app.user.id %}
-                            <a href="">modifier</a>
+                        {% if team.getTeamAdmin == app.user.id %}
+                            <a href="{{ path('team_edit',{idTeam: team.id}) }}">modifier</a>
                         {% endif %}
                     </td>
+                {% endif %}
                 </tr>
             {% endfor %}
             </table>
