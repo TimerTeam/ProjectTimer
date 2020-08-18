@@ -1,0 +1,140 @@
+/*NAVBAR*/
+
+.navbar {
+    background-color: #292929;
+    height: 50px;
+}
+
+nav a {
+    font-weight: bold;
+    color:white;
+}
+
+.host{
+    margin-left: 20px;
+}
+
+.host:hover{
+    color: orange;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.account{
+    margin-right: 20px;
+}
+
+/********/
+
+
+/*HOMEPAGE*/
+
+
+
+#general {
+    display: flex; 
+    width: 100%;
+    min-height: 100vh;
+    margin : auto;
+    align-items: center;
+    justify-content: center;
+font-family: 'Lato', sans-serif;
+}
+
+.form {
+    background-color: white;
+    width: 400px;
+    height: 550px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 1px 12px #555;
+
+}
+
+.form h3{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.sign-up{
+    margin-right: 50px;
+}
+
+.sign-in{
+    margin-left: 50px;
+}
+
+.field, .field-2{
+    width: 100%;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.field-2{
+    margin-bottom: 10px;
+}
+
+.f-email{
+    margin-bottom: 30px;
+}
+
+.f-password{
+    margin-top: 30px;
+    margin-bottom: 80px;
+}
+
+.field input{
+    width: 100%;
+    border: none;
+    outline: none!important;
+    line-height: 1.2;
+    height: 50px;
+}
+.field-2 input{
+    width: 100%;
+    border: none;
+    outline: none!important;
+    line-height: 1.2;
+    height: 30px;
+    line-height: 1.2;
+}
+
+#register {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/********/
+
+/*PROFIL*/
+
+.profil{
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.information{
+    border: thick double black;    padding: 20px;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+#button{
+    margin-top : 20px;
+}
+
+#modify{
+    margin-top: 20px;
+    display:none;
+}
+
+.btn-sbm-mod{
+    margin-top : 20px;
+}
+
+
+
+/*******/

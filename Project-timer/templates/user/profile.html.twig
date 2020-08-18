@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile list{% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block body %}
+
+    {% include 'layout/navbar.html.twig'%}
+
+        {% for message in app.flashes('notice') %}
+            <div class="alert alert-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    <div class = "profil">
+        <div class = "information">
+            <h3 style = "margin-bottom: 10px;"> Informations détaillées </h3>
+            <li>Nom: {{ user.lastName|upper }}</li>
+            <li>Prénom: {{ user.firstName }}</li>
+            <li>Email: {{ user.email }}</li>
+            <button id = "button" class = "btn btn-primary">Modifier le profil</button>
+            <a id = "buttonDelete" class="btn btn-danger" href="{{ path('user_delete', {'id': user.id}) }}" style="padding-top: auto; margin-top: 20px; margin-left: 2px">Supprimer mon compte</a>
+
+        </div>
+        <div id = "modify">
+            {{ form(form) }}
+        </div>
+    </div>
+
+<script>
+/*
+function afficher_Form(){
+    var modify = document.getElementById("modify");
+
+    if (modify.style.display == 'flex'){
+        modify.style.display = 'none';
+    }
+    else{
+        modify.style.display = 'flex';
+    }
+}*/
+
+var button = document.getElementById("button");
+var deletebtn = document.getElementById("buttonDelete");
+var modify = document.getElementById("modify");
+let hidden = true;
+
+    modify.style.display="none";
+            button.addEventListener('click', () => {
+               if(hidden){
+                   modify.style.display="block";
+                  // deletebtn.style.display="none";
+                   modify.style.width="70%";
+                   button.textContent="en cours de modif..";
+                   hidden = false;
+               }
+               else {
+                   button.textContent="Modifier le profil"
+                 //  deletebtn.style.display="block";
+                    modify.style.display="none";
+        hidden = true;
+
+}
+            });
+
+
+</script>     
+        
+        
+
+
+
+{% endblock %}
