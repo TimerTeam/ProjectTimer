@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TeamRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Team;
 use App\Entity\User;
@@ -45,7 +46,6 @@ class TeamController extends AbstractController
     {
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
-        dump($form);die;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,6 +54,7 @@ class TeamController extends AbstractController
             $curentUserId = $curentUser->getId();
             $team->setTeamAdmin($curentUserId);
             $team->addUser($curentUser);
+            dump($team);
 
             $entityManager->persist($team);
             $entityManager->flush();
