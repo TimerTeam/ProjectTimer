@@ -3,52 +3,29 @@
 {% block title %}Hello Project Controller!{% endblock %}
 
 {% block body %}
-<!--
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/ProjectController.php'|file_link(0) }}">src/Controller/GroupController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/project/templates/project/index.html.twig'|file_link(0) }}">templates/group/index.html.twig</a></code></li>
-    </ul>
-</div>
--->
- <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-        .example-wrapper ul {text-decoration: none;}
-        .example-wrapper a {text-decoration: none;}
-        .example-wrapper ul li {padding: 10px; margin: 10px; text-decoration: none;}
-        .example-wrapper ul li a{padding: 10px; margin: 3px; text-decoration: none; display: inline;}
-        .example-wrapper a {text-decoration: none;}
-    </style>
+     {% include 'layout/navbar.html.twig'%}
 
     <div class="container">
-        <div Class="row justify-content-center">
-    <h1>Liste des projets</h1>
-            <table Class="table">
-                <thead>
-                <tr>
-                    <th> nom </th>
-                    <th> description </th>
-                    <th> projet </th>
-                  <!--  <th colspan="3"> Action</th> -->
-                </tr>
+    <h1  style="margin-top: 20px; text-align: center;">Liste des projets</h1>
+    <a style= "margin-top: 10px; margin-bottom: 5px;" href="{{ path('project-create') }}" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Créer un projet</a>
+
+            <table class="table table-bordered" style="text-align: center;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> Nom </th>
+                        <th> Description </th>
+                        <th> Groupe(s) </th>
+                        <th> Modifier </th>
+                    </tr>
                 </thead>
             {# légèrement différent de php avec foreach userList as user #}
             {% for projet in projet_list %}
                 <tr>
-                <td>{{ projet.name }} </td>
-                <td>{{ projet.description }} </td>
+                <td style="vertical-align:middle;">{{ projet.name }} </td>
+                <td style="vertical-align:middle;">{{ projet.description }} </td>
                 {% if projet.getTeam is not empty %}
-                    <td> 
-                    - groupe lié au projet: 
+                    <td style="vertical-align:middle;">  
                     {% for team in projet.getTeam %}
                         {{team.name}} ,
                     {% endfor %}
@@ -56,12 +33,13 @@
                 {% endif %}
                     <td>
                         {% if projet.getProjectAdmin == app.user.id %}
-                            <a href="{{ path('project_edit',{idProject: projet.id}) }}">modifier</a>
+                            <a href="{{ path('project_edit',{idProject: projet.id}) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        {% else %}
+                            Impossible, vous n'êtes pas l'administateur du groupe.
                         {% endif %}
                     </td>
                 </tr>
             {% endfor %}
             </table>
-    </div>
     </div>
 {% endblock %}
