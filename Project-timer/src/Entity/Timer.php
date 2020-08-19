@@ -20,7 +20,7 @@ class Timer
     /**
      * @ORM\OneToOne(targetEntity=Project::class, cascade={"persist", "remove"})
      */
-    private $project;
+    private $project; // référence à project (id)
 
     /**
      * @ORM\Column(type="text")
@@ -30,7 +30,7 @@ class Timer
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $horodateDebut;
+    private $horodateDebut; // mettre type datetime
 
     /**
      * @ORM\Column(type="string", length=255)
