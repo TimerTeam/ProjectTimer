@@ -14,8 +14,8 @@
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/GroupController.php'|file_link(0) }}">src/Controller/GroupController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/project/templates/group/index.html.twig'|file_link(0) }}">templates/group/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/ProjectController.php'|file_link(0) }}">src/Controller/GroupController.php</a></code></li>
+        <li>Your template at <code><a href="{{ '/var/www/project/templates/project/index.html.twig'|file_link(0) }}">templates/group/index.html.twig</a></code></li>
     </ul>
 </div>
 -->
@@ -37,7 +37,7 @@
                 <tr>
                     <th> nom </th>
                     <th> description </th>
-                    <th> groupe </th>
+                    <th> projet </th>
                   <!--  <th colspan="3"> Action</th> -->
                 </tr>
                 </thead>
@@ -46,17 +46,17 @@
                 <tr>
                 <td>{{ projet.name }} </td>
                 <td>{{ projet.description }} </td>
-                {% if projet.getGroup is not empty %}
+                {% if projet.getTeam is not empty %}
                     <td> 
                     - groupe lié au projet: 
-                    {% for groups in projet.getGroup %}
-                        {{groups.name}} ,
+                    {% for team in projet.getTeam %}
+                        {{team.name}} ,
                     {% endfor %}
                     </td>
                 {% endif %}
                     <td>
                         {% if projet.getProjectAdmin == app.user.id %}
-                            <a href="">modifier</a>
+                            <a href="{{ path('project_edit',{idProject: projet.id}) }}">modifier</a>
                         {% endif %}
                     </td>
                 </tr>

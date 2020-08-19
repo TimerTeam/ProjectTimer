@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Group;
+use App\Entity\Team;
 use App\Entity\Project;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -22,10 +22,10 @@ class ProjectType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description')
-            ->add('group', EntityType::class, [
-                'class' => Group::class,
-                'choice_label' => function(Group $group){
-                    return $group->getName();
+            ->add('team', EntityType::class, [
+                'class' => Team::class,
+                'choice_label' => function(Team $team){
+                    return $team->getName();
                 },
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u');

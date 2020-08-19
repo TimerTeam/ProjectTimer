@@ -34,9 +34,14 @@ class Project
      */
     private $projectAdmin;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Team::class)
+     */
+    private $teams;
+
     public function __construct()
     {
-       // $this->teams = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,14 +74,14 @@ class Project
     }
 
     /**
-     * @return Collection|Group[]
+     * @return Collection|Team[]
      */
-    public function getGroup(): Collection
+    public function getTeam(): Collection
     {
         return $this->teams;
     }
 
-    public function addGroup(Group $team): self
+    public function addTeam(Group $team): self
     {
         if (!$this->teams->contains($team)) {
             $this->teams[] = $team;
@@ -86,7 +91,7 @@ class Project
         return $this;
     }
 
-    public function removeGroup(Group $team): self
+    public function removeTeam(Group $team): self
     {
         if ($this->teams->contains($team)) {
             $this->teams->removeElement($team);
