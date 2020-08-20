@@ -13,8 +13,10 @@
         
             {% if team is not empty %}
                 {% for users in team.getUsers %}
-                    <input type="radio" id="scales" name="scales">
-                    <label for="scales">{{users.firstName}}<br></label>
+                    {% if team.getTeamAdmin == app.user.id %}
+                        <input type="radio" id="scales" name="scales" checked>
+                        <label for="scales">{{users.firstName}}<br></label>
+                    {% endif %}
                 {% endfor %}
             {% endif %}<br><br>
 

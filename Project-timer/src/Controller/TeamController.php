@@ -47,7 +47,6 @@ class TeamController extends AbstractController
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
-        $list = $this->teamRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -75,12 +74,12 @@ class TeamController extends AbstractController
      */
     public function editAction(
         Request $request,
-        EntityManagerInterface $entityManager)
+        EntityManagerInterface $entityManager,
+        $idTeam)
     {
-        $team = new Team();
+        $team = $this->teamRepository->find(['id' => $idTeam]);
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
-        $list = $this->teamRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -88,11 +87,10 @@ class TeamController extends AbstractController
             $curentUserId = $curentUser->getId();
             $team->setTeamAdmin($curentUserId);
             $team->addUser($curentUser);
-            dump($team);
 
             $entityManager->persist($team);
             $entityManager->flush();
-            $this->addFlash('success', "The user has been created");
+            $this->addFlash('success', "The user has been updated");
 
             return $this->redirectToRoute('team');
 
@@ -124,4 +122,5 @@ class TeamController extends AbstractController
             'team' => $t
         ]);
     }
+
 }
