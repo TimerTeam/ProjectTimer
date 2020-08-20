@@ -3,21 +3,29 @@
 namespace App\Controller;
 
 use App\Entity\Timer;
-use App\Form\TimerType;
+use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TimerRepository;
+use App\Repository\TeamRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TimerController extends AbstractController
 {
     private $timerRepository;
+    private $userRepository;
+    private $teamRepository;
+    private $projectRepository;
 
-    public function __construct(TimerRepository $timerRepository)
+    public function __construct(TimerRepository $timerRepository, UserRepository $userRepository, TeamRepository $teamRepository, ProjectRepository $projectRepository)
     {
         $this->timerRepository = $timerRepository;
+        $this->userRepository = $userRepository;
+        $this->teamRepository = $teamRepository;
+        $this->projectRepository = $projectRepository;
     }
 
     /**
@@ -79,8 +87,6 @@ class TimerController extends AbstractController
         $datetimeNow = new \DateTime();
         $datetimeNow->modify('+2 hour');
         $timer->setDateStart($datetimeNow);
-        //dump($timer->getDateStart());
-        //die;
 
         $token = uniqid();
         $timer->setToken($token);
@@ -117,6 +123,53 @@ class TimerController extends AbstractController
 
         return $this->redirectToRoute('timer', [
             'idTeam' => $idTeam,
+        ]);
+    }
+
+    /**
+     * @Route("/timer_team", name="timer-team")
+     */
+    public function listTeam()
+    {
+        $currentUser = $this->getUser();
+        $currentUserId = $currentUser->getId();
+        $teams = $this->teamRepository->findAll();
+        $tArray = [];
+        foreach ($teams as $team) {
+            $users = $team->getUsers();
+            foreach ($users as $user){
+                if ($user->getId() == $currentUserId){
+                    $tArray[] = $team;
+                }
+            }
+        }
+
+        return $this->render('timer/listTeam.html.twig', [
+            'tArray' => $tArray
+        ]);
+    }
+
+    /**
+     * @Route("/timer_group/{idTeam}", name="timer-group")
+     */
+    public function listGroup($idTeam)
+    {
+        $currentUser = $this->getUser();
+        $currentUserId = $currentUser->getId();
+        $projects = $this->projectRepository->findAll();
+        $gArray = [];
+        foreach ($projects as $project) {
+            $team = $project->getTeam();
+            foreach ($team as $t){
+                if ($t->getId() == $idTeam){
+                    $gArray[] = $project;
+                }
+            }
+        }
+
+        return $this->render('timer/listGroup.html.twig', [
+            'gArray' => $gArray,
+            'idTeam' => $idTeam
         ]);
     }
 }

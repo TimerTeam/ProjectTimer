@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="78cb0769-6318-4c6e-b99e-fc44c2279abd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/timer/listGroup.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/timer/listTeam.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TimerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TimerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Timer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Timer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200819093640.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200819103146.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200820094525.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/timer/startAndStop.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/timer/startAndStop.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +149,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../lms-core" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/timer" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -164,7 +169,7 @@
       <option name="presentableId" value="Default" />
       <updated>1597829603478</updated>
       <workItem from="1597829604517" duration="18078000" />
-      <workItem from="1597910088344" duration="2730000" />
+      <workItem from="1597910088344" duration="10076000" />
     </task>
     <servers />
   </component>
@@ -188,6 +193,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="478" y="145" width="579" height="592" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1597830901979" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1597919929361">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1597919929361" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1597833422318">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

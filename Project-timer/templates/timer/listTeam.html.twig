@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choissisez votre groupe !{% endblock %}
+
+{% block body %}
+
+    {% include 'layout/navbar.html.twig'%}
+
+    <div class="container">
+    <h1 style="margin-top: 20px; text-align: center;">Dans quel groupe voulez vous travaillez ?</h1>
+        <table class="table table-bordered" style="text-align: center;">
+            <thead class="thead-dark">
+            <tr>
+                <th> Nom </th>
+                <th> Travailler </th>
+            </tr>
+            {% for team in tArray %}
+                <tr>
+                    <td> {{ team.name }} </td>
+                    <td>
+                        <a href="{{ path('timer-group',{idTeam: team.id}) }}">Travail</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </thead>
+
+        </table>
+    </div>
+{% endblock %}

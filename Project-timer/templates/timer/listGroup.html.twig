@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choissisez votre groupe !{% endblock %}
+
+{% block body %}
+
+    {% include 'layout/navbar.html.twig'%}
+
+    <div class="container">
+    <h1 style="margin-top: 20px; text-align: center;">Dans quel projet voulez vous commencer le timer ?</h1>
+        <table class="table table-bordered" style="text-align: center;">
+            <thead class="thead-dark">
+            <tr>
+                <th> Nom </th>
+                <th> Timer </th>
+            </tr>
+            {% for group in gArray %}
+                <tr>
+                    <td> {{ group.name }} </td>
+                    <td>
+                        <a href="{{ path('timer-start',{idTeam: idTeam, idProject: group.id}) }}">Démarrer un nouveau timer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </thead>
+
+        </table>
+    </div>
+{% endblock %}
