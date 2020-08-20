@@ -76,7 +76,9 @@ class TimerController extends AbstractController
         $timer->setUser($curentUserId);
         $timer->setTeam($idTeam);
         $timer->setProject($idProject);
-        $timer->setDateStart(new \DateTime());
+        $datetimeNow = new \DateTime();
+        $datetimeNow->modify('+2 hour');
+        $timer->setDateStart($datetimeNow);
         //dump($timer->getDateStart());
         //die;
 
@@ -103,7 +105,9 @@ class TimerController extends AbstractController
         $tokenTimer = $session->get('tokenTimer');
         $timerArray = $this->timerRepository->findBy(['token' => $tokenTimer]);
         $timer = $timerArray[0];
-        $timer->setDateEnd(new \DateTime());
+        $datetimeNow = new \DateTime();
+        $datetimeNow->modify('+2 hour');
+        $timer->setDateEnd($datetimeNow);
         $idTeam = $timer->getTeam();
 
         $entityManager->persist($timer);
