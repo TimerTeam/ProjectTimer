@@ -47,6 +47,7 @@ class TeamController extends AbstractController
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
+        $list = $this->teamRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -74,12 +75,12 @@ class TeamController extends AbstractController
      */
     public function editAction(
         Request $request,
-        EntityManagerInterface $entityManager,
-        $idTeam)
+        EntityManagerInterface $entityManager)
     {
-        $team = $this->teamRepository->find(['id' => $idTeam]);
+        $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
+        $list = $this->teamRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -87,10 +88,11 @@ class TeamController extends AbstractController
             $curentUserId = $curentUser->getId();
             $team->setTeamAdmin($curentUserId);
             $team->addUser($curentUser);
+            dump($team);
 
             $entityManager->persist($team);
             $entityManager->flush();
-            $this->addFlash('success', "The user has been updated");
+            $this->addFlash('success', "The user has been created");
 
             return $this->redirectToRoute('team');
 
@@ -98,6 +100,28 @@ class TeamController extends AbstractController
 
         return $this->render('team/edit.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/change_admin/{idTeam}", name="change_admin")
+     */
+    public function changeAdmin($idTeam)
+    {
+        $teamList = $this->teamRepository->findAll();
+        $t = []; 
+        foreach($teamList as $team){
+            if($team->getId() == $idTeam){
+                $t = $team;  
+            }
+        }
+       
+     
+        
+        return $this->render('team/admin.html.twig', [
+            'controller_name' => 'Team Controller',
+            'team_list' => $teamList,
+            'team' => $t
         ]);
     }
 }

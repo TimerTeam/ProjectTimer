@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Team{% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block body %}
+    {% include 'layout/navbar.html.twig'%}
+
+    <main role="main" class="container">
+
+        <h1 style="text-align: center; margin-top: 20px;">Changer l'administrateur</h1>
+        
+            {% if team is not empty %}
+                {% for users in team.getUsers %}
+                    <input type="radio" id="scales" name="scales">
+                    <label for="scales">{{users.firstName}}<br></label>
+                {% endfor %}
+            {% endif %}<br><br>
+
+            <a href="#" class = "btn btn-primary">Changer</a>
+
+
+
+    </main>
+{% endblock %}
