@@ -29,44 +29,49 @@ class TimerController extends AbstractController
     }
 
     /**
-     * @Route("/timer/{idTeam}", name="timer")
+     * @Route("/timer/{idTeam}/{idProject}", name="timer")
      */
-    public function index($idTeam)
+    public function index($idTeam,$idProject)
+    {
+        $projectList = $this->timerRepository->findBy(['project' => $idProject]);
+        $timeProject = $this->calcTime($projectList);
+
+        $projectTeamList = $this->timerRepository->findBy(['team' => $idTeam,'project' => $idProject]);
+        $timeTeamProject = $this->calcTime($projectTeamList);
+        
+        $curentUser = $this->getUser();
+        $curentUserId = $curentUser->getId();
+        $projectUserList = $this->timerRepository->findBy(['user' => $curentUserId,'project' => $idProject]);
+        $timeUserProject = $this->calcTime($projectUserList);
+
+        $curentProject = >$projectRepository->findBy(['project' => $idProject]);
+
+        return $this->render('timer/index.html.twig', [
+            'controller_name' => 'TimerController',
+            'projectList' => $projectList,
+            'projectTime' => $timeProject,
+            'projectTeamTime' => $timeTeamProject,
+            'projectUserTime' => $timeUserProject,
+        ]);
+    }
+
+    public function calcTime($projectList)
     {
         $date = new \DateTime();
-        $dateTimeFormat = 'Y-m-d H:i:s';
-
-        $projectListWhereIdTeam = $this->timerRepository->findBy(['team' => $idTeam]);
-
+        $dateTimeFormat = 'd:H:i:s';
         $timeList = [];
         $fullInterval = 0;
-        foreach ($projectListWhereIdTeam as $project){
+        foreach ($projectList as $project){
             if (($project->getDateStart() != null) && ($project->getDateEnd() != null)){
 
                 $dateStartTimestamp = $project->getDateStart()->getTimestamp();
                 $dateEndTimestamp = $project->getDateEnd()->getTimestamp();
-                $interval = $dateEndTimestamp - $dateStartTimestamp;
-                $timeList[$project->getId()]['interval'] = $interval;
-
-                $dateStart = $project->getDateStart();
-                $dateEnd = $project->getDateEnd();
-
-                $timeList[$project->getId()]['dateStart'] = $dateStart;
-                $timeList[$project->getId()]['dateEnd'] = $dateEnd;
+                $fullInterval += $dateEndTimestamp - $dateStartTimestamp;
             }
-        }
-
-        foreach ($timeList as $time){
-            $fullInterval += $time['interval'];
         }
         $timeProject = $date->setTimestamp($fullInterval)->format($dateTimeFormat);
 
-
-        return $this->render('timer/index.html.twig', [
-            'controller_name' => 'TimerController',
-            'projectList' => $projectListWhereIdTeam,
-            'projectTime' => $timeProject
-        ]);
+        return $timeProject;
     }
 
     /**
@@ -115,6 +120,7 @@ class TimerController extends AbstractController
         $datetimeNow->modify('+2 hour');
         $timer->setDateEnd($datetimeNow);
         $idTeam = $timer->getTeam();
+        $idProject = $timer->getProject();
 
         $entityManager->persist($timer);
         $entityManager->flush();
@@ -123,6 +129,7 @@ class TimerController extends AbstractController
 
         return $this->redirectToRoute('timer', [
             'idTeam' => $idTeam,
+            'idProject' => $idProject,
         ]);
     }
 
