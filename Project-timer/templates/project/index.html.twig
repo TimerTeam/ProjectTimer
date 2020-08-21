@@ -25,11 +25,13 @@
                 <td style="vertical-align:middle;">{{ projet.name }} </td>
                 <td style="vertical-align:middle;">{{ projet.description }} </td>
                 {% if projet.getTeam is not empty %}
-                    <td style="vertical-align:middle;">  
+                    <td >  
                     {% for team in projet.getTeam %}
                         {{team.name}} ,
                     {% endfor %}
                     </td>
+                {% else %}
+                    <td style="vertical-align:middle;">Aucun groupe s'occupe du projet</td>
                 {% endif %}
                     <td>
                         {% if projet.getProjectAdmin == app.user.id %}

@@ -104,5 +104,17 @@ class TeamController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/delete/{id}", name="team_delete")
+     */
+    public function deleteBis(string $id, EntityManagerInterface $entityManager)
+    {
+        $team = $this->teamRepository->find($id);
+        $entityManager->remove($team);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('team');
+    }
+
 
 }
