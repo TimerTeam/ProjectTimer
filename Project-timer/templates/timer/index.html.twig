@@ -10,11 +10,11 @@
 
 <div class="example-wrapper">
     <h1>Temps de travaille du projet</h1>
-    {#<div>{{ projectList }}</div>#}
-    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/TimerController.php'|file_link(0) }}">src/Controller/TimerController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/project/templates/timer/index.html.twig'|file_link(0) }}">templates/timer/index.html.twig</a></code></li>
+        <li>temps globale du {{ project.name }} : {{ projectTime }} [JOUR:HEUR:MINUTE:SECONDE]</li>
+        <li>temps passé par la {{ team.name }} sur le {{ project.name }}: {{ projectTeamTime }} [JOUR:HEUR:MINUTE:SECONDE]</li>
+        <li>temps passé par {{ user.firstName }} {{ user.lastName }} sur le {{ project.name }}: {{ projectUserTime }} [JOUR:HEUR:MINUTE:SECONDE]</li>
     </ul>
+    <a href="{{ path('timer-start',{idTeam: team.id, idProject: project.id}) }}">Démarrer un nouveau timer</a>
 </div>
 {% endblock %}

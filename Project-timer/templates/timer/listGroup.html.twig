@@ -18,7 +18,7 @@
                 <tr>
                     <td> {{ group.name }} </td>
                     <td>
-                        <a href="{{ path('timer-start',{idTeam: idTeam, idProject: group.id}) }}">Démarrer un nouveau timer</a>
+                        <a href="{{ path('timer',{idTeam: idTeam, idProject: group.id}) }}">travail</a>
                     </td>
                 </tr>
             {% endfor %}

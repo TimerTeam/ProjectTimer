@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Timer;
-use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ProjectRepository;
 use App\Repository\TimerRepository;
 use App\Repository\TeamRepository;
 use App\Repository\UserRepository;
@@ -44,7 +44,8 @@ class TimerController extends AbstractController
         $projectUserList = $this->timerRepository->findBy(['user' => $curentUserId,'project' => $idProject]);
         $timeUserProject = $this->calcTime($projectUserList);
 
-        $curentProject = >$projectRepository->findBy(['project' => $idProject]);
+        $curentProject =  $this->projectRepository->find($idProject);
+        $curentTeam = $this->teamRepository->find($idTeam);
 
         return $this->render('timer/index.html.twig', [
             'controller_name' => 'TimerController',
@@ -52,6 +53,9 @@ class TimerController extends AbstractController
             'projectTime' => $timeProject,
             'projectTeamTime' => $timeTeamProject,
             'projectUserTime' => $timeUserProject,
+            'project' => $curentProject,
+            'team' => $curentTeam,
+            'user' => $curentUser,
         ]);
     }
 
