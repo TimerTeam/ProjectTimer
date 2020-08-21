@@ -81,6 +81,13 @@ class Project
         return $this->teams;
     }
 
+    public function setTeams(?Team $teams): self
+    {
+        $this->teams = $teams;
+
+        return $this;
+    }
+
     public function addTeam(Group $team): self
     {
         if (!$this->teams->contains($team)) {

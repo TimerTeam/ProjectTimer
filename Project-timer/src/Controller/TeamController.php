@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TeamRepository;
@@ -31,6 +32,10 @@ class TeamController extends AbstractController
     public function index()
     {
         $teamList = $this->teamRepository->findAll();
+        //$test = $teamList.$this->getUser();
+
+        dump($teamList);
+
         return $this->render('team/index.html.twig', [
             'controller_name' => 'Team Controller',
             'team_list' => $teamList
@@ -50,10 +55,8 @@ class TeamController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $curentUser = $this->getUser(); 
-            $curentUserId = $curentUser->getId();
-            $team->setTeamAdmin($curentUserId);
-            $team->addUser($curentUser);
+            $team->setTeamAdmin($this->getUser()->getId());
+            $team->addUser($this->getUser());
             dump($team);
 
             $entityManager->persist($team);
@@ -100,4 +103,6 @@ class TeamController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

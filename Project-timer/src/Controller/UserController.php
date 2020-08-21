@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Team;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -32,6 +33,7 @@ class UserController extends AbstractController
      */
     public function index()
     {
+
         $userList = $this->userRepository->findAll();
         return $this->render('user/index.html.twig', [
             'user_list' => $userList,
@@ -97,12 +99,24 @@ class UserController extends AbstractController
      */
     public function delete(user $user, EntityManagerInterface $entityManager)
     {
+        $groups =  $this->entityManager->getRepository(Team::class)->findAll();
+        foreach($groups as $group){
+            if($user->getId() == $group->getTeamAdmin() && count($group->getUsers()) > 1 ){
+                $group->removeUser($user);
+                $group->setTeamAdmin($group->getUsers()[0]->getId());
+                $entityManager->persist($group);
+            }
+            if($user->getId() == $group->getTeamAdmin() && count($group->getUsers()) <= 1 ){
+                $entityManager->remove($group);
+            }
+        }
+
         $entityManager->remove($user);
         $entityManager->flush();
 
         $this->addFlash('danger', "Votre compte a bien été supprimé");
 
-        return $this->redirectToRoute('user_list');
+        return $this->redirectToRoute('home');
     }
 
 }

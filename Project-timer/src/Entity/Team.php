@@ -71,6 +71,12 @@ class Team
         return $this->projects;
     }
 
+    public function setProjects(?Project $projects): self
+    {
+        $this->projects = $projects;
+
+        return $this;
+    }
     public function addProject(Project $project): self
     {
         if (!$this->projects->contains($project)) {
@@ -100,6 +106,7 @@ class Team
 
         return $this;
     }
+
 
     /**
      * @return Collection|User[]
